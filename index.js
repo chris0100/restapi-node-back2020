@@ -19,6 +19,9 @@ mongoose.connect(process.env.DB_URL, {
 //crea el servidor
 const app = express();
 
+//carpeta publica
+app.use(express.static('uploads'));
+
 
 //habilita bodyParser
 app.use(bodyParser.json());
@@ -30,7 +33,6 @@ const whitelist = [process.env.FRONTEND_URL];
 
 const corsOptions = {
     origin: (origin, callback) => {
-        console.log(origin);
         //revisar si la peticion viene de un servidor que esta en whitelist
         const existe = whitelist.some(dominio => dominio === origin);
 
@@ -51,8 +53,7 @@ app.use(cors(corsOptions));
 //Rutas de la app
 app.use('/', routes());
 
-//carpeta publica
-app.use(express.static('uploads'));
+
 
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 5001;
