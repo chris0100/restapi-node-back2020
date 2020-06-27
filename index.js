@@ -10,7 +10,8 @@ const cors = require('cors');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/restapis', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 });
 
 //crea el servidor
@@ -26,6 +27,9 @@ app.use(cors());
 
 //Rutas de la app
 app.use('/', routes());
+
+//carpeta publica
+app.use(express.static('uploads'));
 
 //puerto
 app.listen(5001);
